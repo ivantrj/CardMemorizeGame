@@ -36,7 +36,7 @@ struct ContentView: View {
             .navigationTitle("Memorize!")
         }
         
-        HStack(spacing: 25) {
+        HStack(alignment: .lastTextBaseline, spacing: 25) {
             ThemeButton(icon: "car", title: "Vehicles") {
                 self.selectedTheme = .vehicles
                 self.emojis = vehicleEmojis.shuffled()
