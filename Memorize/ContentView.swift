@@ -56,12 +56,13 @@ struct ContentView: View {
 struct CardView: View {
     @State var isFaceUp = false
     let content: String
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
             Group {
-                base.fill(.white)
+                base.fill(colorScheme == .dark ? .black : .white)
                 base.strokeBorder(lineWidth: 2)
                 Text(content).font(.largeTitle)
             }
