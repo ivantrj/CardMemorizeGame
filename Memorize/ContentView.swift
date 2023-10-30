@@ -16,8 +16,9 @@ struct ContentView: View {
     }
     
     let halloweenEmojis: [String] = ["👻", "🎃", "🕷️", "😈", "👻", "🎃", "🕷️", "😈", "👹", "🦇"]
-    let vehicleEmojis: [String] = ["🚗", "🚕", "🚲", "🛴", "🚆", "✈️", "🚢", "🚁", "🏍️", "🚓", "🚜", "🛵"]
-    let animalEmojis: [String] = ["🐶", "🐱", "🐭", "🐰", "🐻", "🐨", "🐯", "🦁", "🦊", "🐸"]
+    let vehicleEmojis: [String] = ["🚗", "🚕", "🚲", "🛴", "🚆", "✈️", "🚢", "🚁", "🏍️", "🚓", "🚜", "🛵", "🚒", "🚑", "🚂", "🛺"]
+    let animalEmojis: [String] = ["🐶", "🐱", "🐭", "🐰", "🐻", "🐨", "🐯", "🦁", "🦊", "🐸", "🦉"]
+
     
     
     var body: some View {
@@ -84,9 +85,9 @@ struct ThemeButton: View {
         } label: {
             VStack {
                 Image(systemName: icon)
-                    .font(.headline)
+                    .font(.title)
                 Text(title)
-                    .font(.subheadline)
+                    .font(.headline)
             }
         }
     }
