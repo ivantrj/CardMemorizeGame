@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    var viewModel: EmojiMemoryGame
+    
     @State var emojis: [String]
     @State var selectedTheme: Theme?
     
@@ -15,9 +17,9 @@ struct ContentView: View {
         case halloween, vehicles, animals
     }
     
-    let halloweenEmojis: [String] = ["👻", "🎃", "🕷️", "😈", "👻", "🎃", "🕷️", "😈", "👹", "🦇"]
-    let vehicleEmojis: [String] = ["🚗", "🚕", "🚲", "🛴", "🚆", "✈️", "🚢", "🚁", "🏍️", "🚓", "🚜", "🛵", "🚒", "🚑", "🚂", "🛺"]
-    let animalEmojis: [String] = ["🐶", "🐱", "🐭", "🐰", "🐻", "🐨", "🐯", "🦁", "🦊", "🐸", "🦉"]
+    static let halloweenEmojis: [String] = ["👻", "🎃", "🕷️", "😈", "👻", "🎃", "🕷️", "😈", "👹", "🦇"]
+    static let vehicleEmojis: [String] = ["🚗", "🚕", "🚲", "🛴", "🚆", "✈️", "🚢", "🚁", "🏍️", "🚓", "🚜", "🛵", "🚒", "🚑", "🚂", "🛺"]
+    static let animalEmojis: [String] = ["🐶", "🐱", "🐭", "🐰", "🐻", "🐨", "🐯", "🦁", "🦊", "🐸", "🦉"]
 
     
     
@@ -39,15 +41,15 @@ struct ContentView: View {
         HStack(alignment: .lastTextBaseline, spacing: 25) {
             ThemeButton(icon: "car", title: "Vehicles") {
                 self.selectedTheme = .vehicles
-                self.emojis = vehicleEmojis.shuffled()
+                self.emojis = ContentView.vehicleEmojis.shuffled()
             }
             ThemeButton(icon: "compass.drawing", title: "Halloween") {
                 self.selectedTheme = .halloween
-                self.emojis = halloweenEmojis.shuffled()
+                self.emojis = ContentView.halloweenEmojis.shuffled()
             }
             ThemeButton(icon: "cat", title: "Animals") {
                 self.selectedTheme = .animals
-                self.emojis = animalEmojis.shuffled()
+                self.emojis = ContentView.animalEmojis.shuffled()
             }
         }
     }
