@@ -2,7 +2,7 @@
 //  EmojiMemoryGameView.swift
 //  Memorize
 //
-//  Created by ivan ruwido  on 30.10.23.
+//  Created by ivan trajanovski  on 30.10.23.
 //
 
 import SwiftUI
@@ -28,12 +28,16 @@ struct EmojiMemoryGameView: View {
             VStack {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0) {
-                        ForEach(viewModel.cards.indices, id: \.self) { index in
-                            CardView(viewModel.cards[index])
+                        ForEach(viewModel.cards) { card in
+                            CardView(card)
                                 .aspectRatio(2/3, contentMode: .fit)
                                 .padding(4)
+                                .onTapGesture {
+                                    viewModel.choose(card)
+                                }
                         }
                     }
+                    .animation(.default, value: viewModel.cards)
                 }
                 .foregroundColor(.orange)
                 .padding()
@@ -44,21 +48,6 @@ struct EmojiMemoryGameView: View {
                 }
             }
         }
-        
-//        HStack(alignment: .lastTextBaseline, spacing: 25) {
-//            ThemeButton(icon: "car", title: "Vehicles") {
-//                self.selectedTheme = .vehicles
-//                viewModel.cards = EmojiMemoryGameView.vehicleEmojis.shuffled()
-//            }
-//            ThemeButton(icon: "compass.drawing", title: "Halloween") {
-//                self.selectedTheme = .halloween
-//                viewModel.cards = EmojiMemoryGameView.halloweenEmojis.shuffled()
-//            }
-//            ThemeButton(icon: "cat", title: "Animals") {
-//                self.selectedTheme = .animals
-//                viewModel.cards = EmojiMemoryGameView.animalEmojis.shuffled()
-//            }
-//        }
     }
 }
 
