@@ -20,18 +20,34 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    mutating func choose(_ card: Card) {
-        let chosenIndex = index(of: card)
-        cards[chosenIndex].isFaceUp.toggle()
+    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get { cards.indices.filter { index in cards[index].isFaceUp }.only }
+        set { cards.indices.forEach { cards[$0].isFaceUp = (newValue == $0 )} }
     }
     
-    func index(of card: Card) -> Int {
+    mutating func choose(_ card: Card) {
+        if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }) {
+            if !cards[chosenIndex].isFaceUp && !cards[chosenIndex].isMatched {
+                if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
+                    if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+                        cards[chosenIndex].isMatched = true
+                        cards[potentialMatchIndex].isMatched = true
+                    }
+                } else {
+                    indexOfTheOneAndOnlyFaceUpCard = chosenIndex
+                }
+                cards[chosenIndex].isFaceUp = true
+            }
+        }
+    }
+    
+    private func index(of card: Card) -> Int? {
         for index in cards.indices {
             if cards[index].id == card.id {
                 return index
             }
         }
-        return 0 //FIXME: bogus!
+        return nil
     }
     
     mutating func shuffle() {
@@ -39,7 +55,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
-        var isFaceUp = true
+        var isFaceUp = false
         var isMatched = false
         let content: CardContent
         
@@ -47,5 +63,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         var debugDescription: String {
             return "\(id): \(content) \(isFaceUp ? "up" : "down")"
         }
+    }
+}
+
+
+extension Array {
+    var only: Element? {
+        return count == 1 ? first : nil
     }
 }
