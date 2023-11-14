@@ -10,19 +10,6 @@ import SwiftUI
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
-//    @State var emojis: [String]
-    @State var selectedTheme: Theme?
-    
-    enum Theme {
-        case halloween, vehicles, animals
-    }
-    
-    static let halloweenEmojis: [String] = ["👻", "🎃", "🕷️", "😈", "👻", "🎃", "🕷️", "😈", "👹", "🦇"]
-    static let vehicleEmojis: [String] = ["🚗", "🚕", "🚲", "🛴", "🚆", "✈️", "🚢", "🚁", "🏍️", "🚓", "🚜", "🛵", "🚒", "🚑", "🚂", "🛺"]
-    static let animalEmojis: [String] = ["🐶", "🐱", "🐭", "🐰", "🐻", "🐨", "🐯", "🦁", "🦊", "🐸", "🦉"]
-
-    
-    
     var body: some View {
         NavigationStack {
             VStack {
@@ -73,25 +60,6 @@ struct CardView: View {
             base.fill().opacity(card.isFaceUp ? 0 : 1)
         }
         .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
-    }
-}
-
-struct ThemeButton: View {
-    let icon: String
-    let title: String
-    let action: () -> Void
-    
-    var body: some View {
-        Button{
-            action()
-        } label: {
-            VStack {
-                Image(systemName: icon)
-                    .font(.title)
-                Text(title)
-                    .font(.headline)
-            }
-        }
     }
 }
 
