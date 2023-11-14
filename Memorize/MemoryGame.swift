@@ -6,11 +6,29 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct Theme<CardContent> where CardContent: Equatable {
+    var name: String
+    var emojis: [CardContent]
+    var numberOfPairs: Int
+    var cardColor: Color
+    
+    init(name: String, emojis: [CardContent], numberOfPairs: Int, cardColor: Color) {
+        self.name = name
+        self.emojis = emojis
+        self.numberOfPairs = numberOfPairs
+        self.cardColor = cardColor
+    }
+    
+}
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
+    private var theme: Theme<CardContent>
     
-    init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+    init(theme: Theme<CardContent>, numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+        self.theme = theme
         cards = []
         // add numberOfPairsOfCards * 2
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {

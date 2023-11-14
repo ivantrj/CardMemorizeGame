@@ -9,6 +9,11 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
+    @State private var selectedThemeIndex = 0
+    
+    var themes: [Theme<String>] {
+        viewModel.availableThemes()
+    }
     
     var body: some View {
         NavigationStack {
@@ -30,13 +35,23 @@ struct EmojiMemoryGameView: View {
                 .padding()
                 .navigationTitle("Memorize!")
                 
+                Picker("Select Theme", selection: $selectedThemeIndex) {
+                    ForEach(themes.indices, id: \.self) { index in
+                        Text(themes[index].name).tag(index)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .onChange(of: selectedThemeIndex) { _ in
+                    viewModel.newGame(themeIndex: selectedThemeIndex)
+                }
+                
                 HStack(spacing: 50) {
                     Button("Shuffle", systemImage: "shuffle") {
                         viewModel.shuffle()
                     }
                     
                     Button("New Game", systemImage: "restart") {
-                        viewModel.resetGame()
+                        viewModel.newGame(themeIndex: selectedThemeIndex)
                     }
                 }
             }
