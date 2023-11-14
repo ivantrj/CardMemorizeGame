@@ -30,8 +30,14 @@ struct EmojiMemoryGameView: View {
                 .padding()
                 .navigationTitle("Memorize!")
                 
-                Button("Shuffle", systemImage: "shuffle") {
-                    viewModel.shuffle()
+                HStack(spacing: 50) {
+                    Button("Shuffle", systemImage: "shuffle") {
+                        viewModel.shuffle()
+                    }
+                    
+                    Button("New Game", systemImage: "restart") {
+                        viewModel.resetGame()
+                    }
                 }
             }
         }
